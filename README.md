@@ -43,7 +43,7 @@ barberia-kevinasos/
 │   ├── assets/           # Imágenes, fuentes y otros recursos
 │   ├── components/       # Componentes reutilizables
 │   ├── config/           # Archivos de configuración
-│   ├── features/         # Características organizadas por dominio
+│   ├── features/         # Características organizadas por modulo o funcionalidades
 │   │   └── public/       # Características públicas
 │   │       ├── home/     # Página de inicio
 │   │       │   ├── components/ # Componentes de la página de inicio
@@ -59,8 +59,7 @@ barberia-kevinasos/
 │   └── main.jsx          # Punto de entrada
 ├── .eslintrc.js          # Configuración de ESLint
 ├── index.html            # Archivo HTML base
-├── package.json          # Dependencias y scripts
-├── tailwind.config.js    # Configuración de Tailwind CSS
+├── package.json          # Dependencias
 └── vite.config.js        # Configuración de Vite
 ```
 
