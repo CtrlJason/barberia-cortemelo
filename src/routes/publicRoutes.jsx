@@ -1,6 +1,6 @@
 import { MainLayout } from "@/features/public/layout/navigation";
 import { Home } from "@/features/public/home/pages";
-
+import LoginForm from "@/features/auth/LoginForm";
 const PublicLayout = () => {
     return (
         <>
@@ -16,6 +16,10 @@ export const publicRoutes = [
             {
                 path: "/",
                 element: <Home />,
+            },
+            {
+                path: "/login",
+                element: <LoginForm/>
             },
         ],
     },

@@ -87,9 +87,9 @@ const Navbar = () => {
                                     isScrolled ? "text-amber-400" : "text-white"
                                 }`}
                             >
-                                Barbería
-                            </span>{" "}
-                            Kevin
+                                Coot
+                            </span>{""}
+                            ters
                         </NavLink>
                     </div>
 

@@ -67,8 +67,8 @@ const Footer = () => {
                     <div className="col-span-1">
                         <Link to="/" className="flex items-center mb-4">
                             <span className="font-bold text-2xl text-white">
-                                <span className="text-amber-400">Barbería</span>{" "}
-                                Kevin
+                                <span className="text-amber-400">Coot</span>{""}
+                                ters
                             </span>
                         </Link>
                         <p className="text-sm mb-4 text-stone-400">
