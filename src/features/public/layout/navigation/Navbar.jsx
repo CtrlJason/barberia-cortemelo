@@ -170,7 +170,18 @@ const Navbar = () => {
                     </div>
 
                     {/* Botón de reserva - Escritorio */}
-                    <div className="hidden md:flex items-center">
+                    <div className="hidden md:flex items-center space-x-2">
+                        <NavLink
+                            to="/login"
+                            className={`inline-flex items-center justify-center px-4 py-2 text-sm font-medium rounded-md shadow-md transition duration-300 ${
+                                isScrolled
+                                    ? "text-stone-900 bg-white hover:bg-amber-100 border border-amber-400"
+                                    : "text-stone-900 bg-white hover:bg-amber-100 border border-amber-400"
+                            }`}
+                            style={{ marginRight: 8 }}
+                        >
+                            Iniciar sesión
+                        </NavLink>
                         <NavLink
                             to="/reservas"
                             className={`inline-flex items-center justify-center px-4 py-2 text-sm font-medium rounded-md shadow-md transition duration-300 ${
@@ -296,7 +307,14 @@ const Navbar = () => {
                         ))}
                     </div>
                     <div className="pt-4 pb-3 border-t border-stone-600">
-                        <div className="flex items-center justify-center px-5">
+                        <div className="flex flex-col items-center justify-center px-5 space-y-2">
+                            <NavLink
+                                to="/login"
+                                className="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-stone-900 bg-white hover:bg-amber-100 w-full shadow-md transition duration-300"
+                                onClick={toggleMenu}
+                            >
+                                Iniciar sesión
+                            </NavLink>
                             <NavLink
                                 to="/reservas"
                                 className="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-stone-900 bg-amber-400 hover:bg-amber-500 w-full shadow-md transition duration-300"
