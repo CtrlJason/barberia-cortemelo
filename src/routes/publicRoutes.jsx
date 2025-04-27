@@ -1,6 +1,6 @@
 import { MainLayout } from "@/features/public/layout/navigation";
 import { Home } from "@/features/public/home/pages";
-import LoginForm from "@/features/auth/LoginForm";
+import LoginForm from "@/features/public/home/pages/auth/LoginForm";
 const PublicLayout = () => {
     return (
         <>
