@@ -1,11 +1,14 @@
 import { useState } from "react";
 import { login } from "../../../../../services/auth.service";
+import { useAuth } from "./AuthContext";
 
 export default function LoginForm() {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
+
+  const { login: loginContext } = useAuth();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -16,6 +19,12 @@ export default function LoginForm() {
     e.preventDefault();
     try {
       const response = await login(formData);
+      // Guardar usuario y token en el contexto
+      loginContext({
+        name: response.user?.name,
+        email: response.user?.email,
+        token: response.token,
+      });
       alert("Inicio de sesión exitoso");
       console.log("Respuesta del servidor:", response);
       // Aquí puedes redirigir al usuario si es necesario

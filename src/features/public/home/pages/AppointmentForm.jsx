@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { reservarCita } from "@/services/reservas.service";
+import { useAuth } from "./auth/AuthContext";
 
 const SEDES = [
   "Sede Principal",
@@ -23,10 +25,11 @@ export default function AppointmentForm() {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(null);
   const [error, setError] = useState(null);
+  const { user } = useAuth();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setForm((prev) => ({ ...prev, [name]: value }));
+    setForm((prev) => ({ ...prev, [name]: value })); 
   };
 
   const handleSubmit = async (e) => {
@@ -35,15 +38,12 @@ export default function AppointmentForm() {
     setError(null);
     setSuccess(null);
     try {
-      const res = await fetch("http://localhost:3000/appointments", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
-      });
-      if (!res.ok) {
-        const err = await res.json();
-        throw new Error(err.message || "Error al reservar la cita");
+      if (!user || !user.token) {
+        setError("Debes iniciar sesión para reservar una cita.");
+        setLoading(false);
+        return;
       }
+      await reservarCita(form, user.token);
       setSuccess("¡Cita reservada exitosamente!");
       setForm({ date: "", time: "", sede: SEDES[0], barber: BARBEROS[0] });
     } catch (err) {

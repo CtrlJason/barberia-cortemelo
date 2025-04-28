@@ -1,5 +1,6 @@
 import { NavLink, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { useAuth } from "@/features/public/home/pages/auth/AuthContext";
 
 // Estructura de navegación
 const navigationLinks = [
@@ -39,6 +40,8 @@ const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [openSublinks, setOpenSublinks] = useState(null);
     const [isScrolled, setIsScrolled] = useState(false);
+    const { user, logout } = useAuth();
+    const [showUserMenu, setShowUserMenu] = useState(false);
 
     // Detectar scroll para cambiar el estilo del navbar
     useEffect(() => {
@@ -171,27 +174,61 @@ const Navbar = () => {
 
                     {/* Botón de reserva - Escritorio */}
                     <div className="hidden md:flex items-center space-x-2">
-                        <NavLink
-                            to="/login"
-                            className={`inline-flex items-center justify-center px-4 py-2 text-sm font-medium rounded-md shadow-md transition duration-300 ${
-                                isScrolled
-                                    ? "text-stone-900 bg-white hover:bg-amber-100 border border-amber-400"
-                                    : "text-stone-900 bg-white hover:bg-amber-100 border border-amber-400"
-                            }`}
-                            style={{ marginRight: 8 }}
-                        >
-                            Iniciar sesión
-                        </NavLink>
-                        <NavLink
-                            to="/reservas"
-                            className={`inline-flex items-center justify-center px-4 py-2 text-sm font-medium rounded-md shadow-md transition duration-300 ${
-                                isScrolled
-                                    ? "text-stone-900 bg-amber-400 hover:bg-amber-500"
-                                    : "text-stone-900 bg-amber-400 hover:bg-amber-500 border border-amber-500/30"
-                            }`}
-                        >
-                            Reservar Ahora
-                        </NavLink>
+                        {user ? (
+                            <div className="relative group">
+                                <button
+                                    onMouseEnter={() => setShowUserMenu(true)}
+                                    onMouseLeave={() => setShowUserMenu(false)}
+                                    className="flex items-center px-4 py-2 text-sm font-medium rounded-md bg-stone-800 text-white hover:bg-stone-700 transition duration-300"
+                                >
+                                    <span className="mr-2 font-semibold">{user.name}</span>
+                                    <span className="text-xs text-stone-300">({user.email})</span>
+                                    <svg className="ml-2 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                                    </svg>
+                                </button>
+                                {showUserMenu && (
+                                    <div
+                                        className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-20"
+                                        onMouseEnter={() => setShowUserMenu(true)}
+                                        onMouseLeave={() => setShowUserMenu(false)}
+                                    >
+                                        <Link to="/perfil" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Ver perfil</Link>
+                                        <Link to="/historial" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Historial de cortes</Link>
+                                        <button
+                                            onClick={logout}
+                                            className="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100"
+                                        >
+                                            Cerrar sesión
+                                        </button>
+                                    </div>
+                                )}
+                            </div>
+                        ) : (
+                            <>
+                                <NavLink
+                                    to="/login"
+                                    className={`inline-flex items-center justify-center px-4 py-2 text-sm font-medium rounded-md shadow-md transition duration-300 ${
+                                        isScrolled
+                                            ? "text-stone-900 bg-white hover:bg-amber-100 border border-amber-400"
+                                            : "text-stone-900 bg-white hover:bg-amber-100 border border-amber-400"
+                                    }`}
+                                    style={{ marginRight: 8 }}
+                                >
+                                    Iniciar sesión
+                                </NavLink>
+                                <NavLink
+                                    to="/reservas"
+                                    className={`inline-flex items-center justify-center px-4 py-2 text-sm font-medium rounded-md shadow-md transition duration-300 ${
+                                        isScrolled
+                                            ? "text-stone-900 bg-amber-400 hover:bg-amber-500"
+                                            : "text-stone-900 bg-amber-400 hover:bg-amber-500 border border-amber-500/30"
+                                    }`}
+                                >
+                                    Reservar Ahora
+                                </NavLink>
+                            </>
+                        )}
                     </div>
 
                     {/* Botón de menú móvil */}

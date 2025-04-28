@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { register } from "../../../../../services/auth.service";
+import { useAuth } from "./AuthContext";
 
 export default function RegisterForm() {
   const [formData, setFormData] = useState({
@@ -8,6 +9,8 @@ export default function RegisterForm() {
     password: "",
     confirmPassword: "",
   });
+
+  const { login: loginContext } = useAuth();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -27,8 +30,13 @@ export default function RegisterForm() {
         password: formData.password,
       };
       const response = await register(userData);
+      // Guardar usuario y token en el contexto
+      loginContext({
+        name: response.user?.name,
+        email: response.user?.email,
+        token: response.token,
+      });
       alert("Usuario registrado exitosamente");
-      // Aquí puedes redirigir o limpiar el formulario
       setFormData({ name: "", email: "", password: "", confirmPassword: "" });
     } catch (error) {
       alert("Error al registrar usuario: " + (error.message || ""));
