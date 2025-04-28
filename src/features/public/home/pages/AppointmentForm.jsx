@@ -15,7 +15,7 @@ const BARBEROS = [
   "Carlos",
 ];
 
-export default function AppointmentForm() {
+export default function CreacionReservas() {
   const [form, setForm] = useState({
     date: "",
     time: "",

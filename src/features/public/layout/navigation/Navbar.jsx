@@ -129,23 +129,25 @@ const Navbar = () => {
                                                     />
                                                 </svg>
                                             </button>
-                                            <div className="absolute hidden group-hover:block z-10 top-8 left-0 w-48 rounded-md bg-stone-800 shadow-lg transition-all duration-300 mt-1">
-                                                <div className="py-1">
-                                                    {link.sublinks.map(
-                                                        (sublink, subIndex) => (
-                                                            <NavLink
-                                                                key={subIndex}
-                                                                to={
-                                                                    sublink.path
-                                                                }
-                                                                className="block px-4 py-2 text-sm font-medium text-stone-300 hover:bg-stone-700 hover:text-amber-300 transition duration-300"
-                                                            >
-                                                                {sublink.name}
-                                                            </NavLink>
-                                                        )
-                                                    )}
+                                            {openSublinks === index && (
+                                                <div className="absolute z-10 top-8 left-0 w-48 rounded-md bg-stone-800 shadow-lg transition-all duration-300 mt-1">
+                                                    <div className="py-1">
+                                                        {link.sublinks.map(
+                                                            (sublink, subIndex) => (
+                                                                <NavLink
+                                                                    key={subIndex}
+                                                                    to={
+                                                                        sublink.path
+                                                                    }
+                                                                    className="block px-4 py-2 text-sm font-medium text-stone-300 hover:bg-stone-700 hover:text-amber-300 transition duration-300"
+                                                                >
+                                                                    {sublink.name}
+                                                                </NavLink>
+                                                            )
+                                                        )}
+                                                    </div>
                                                 </div>
-                                            </div>
+                                            )}
                                         </>
                                     ) : (
                                         <NavLink
@@ -175,10 +177,12 @@ const Navbar = () => {
                     {/* Botón de reserva - Escritorio */}
                     <div className="hidden md:flex items-center space-x-2">
                         {user ? (
-                            <div className="relative group">
+                            <div
+                                className="relative group"
+                                onMouseEnter={() => setShowUserMenu(true)}
+                                onMouseLeave={() => setShowUserMenu(false)}
+                            >
                                 <button
-                                    onMouseEnter={() => setShowUserMenu(true)}
-                                    onMouseLeave={() => setShowUserMenu(false)}
                                     className="flex items-center px-4 py-2 text-sm font-medium rounded-md bg-stone-800 text-white hover:bg-stone-700 transition duration-300"
                                 >
                                     <span className="mr-2 font-semibold">{user.name}</span>
@@ -190,8 +194,6 @@ const Navbar = () => {
                                 {showUserMenu && (
                                     <div
                                         className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-20"
-                                        onMouseEnter={() => setShowUserMenu(true)}
-                                        onMouseLeave={() => setShowUserMenu(false)}
                                     >
                                         <Link to="/perfil" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Ver perfil</Link>
                                         <Link to="/historial" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Historial de cortes</Link>

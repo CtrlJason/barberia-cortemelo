@@ -34,7 +34,7 @@ export default function RegisterForm() {
       loginContext({
         name: response.user?.name,
         email: response.user?.email,
-        token: response.token,
+        token: response.access_token, // <-- usar el token correcto
       });
       alert("Usuario registrado exitosamente");
       setFormData({ name: "", email: "", password: "", confirmPassword: "" });
